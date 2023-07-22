@@ -1,4 +1,5 @@
 using AssignmentsAPI.Repositories;
+using AssignmentsAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ISqlConnectionFactory, SqlConnectionFactory>();
 builder.Services.AddScoped<IAssignmentsRepository, AssignmentsRepository>();
+builder.Services.AddScoped<IAssignmentsService, AssignmentsService>();
 
 var app = builder.Build();
 

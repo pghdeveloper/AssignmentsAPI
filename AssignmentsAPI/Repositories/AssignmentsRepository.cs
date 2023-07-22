@@ -14,7 +14,7 @@ namespace AssignmentsAPI.Repositories
 			_sqlConnectionFactory = sqlConnectionFactory;
 		}
 
-        public async Task Insert(Assignments assignment)
+        public async Task InsertAsync(Assignments assignment)
         {
 			using (var connection = _sqlConnectionFactory.CreateSqlConnection())
 			{
@@ -26,7 +26,7 @@ namespace AssignmentsAPI.Repositories
 
 	public interface IAssignmentsRepository
 	{
-		Task Insert(Assignments assignment);
+		Task InsertAsync(Assignments assignment);
 	}
 }
 
