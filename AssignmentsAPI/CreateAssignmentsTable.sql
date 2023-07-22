@@ -6,8 +6,8 @@
 -- PercentComplete NUMERIC NOT NULL CHECK(PercentComplete == ROUND(PercentComplete, 2)),
 -- IsPriority INTEGER NOT NULL);
 
---Insert Into Assignments(Id, Assignee, DueDate, Description, PercentComplete, IsPriority)
---Values(UUID(), 'John Cena', '2023-09-01', 'Test Description', 0, 1);
+-- Insert Into Assignments(Id, Assignee, DueDate, Description, PercentComplete, IsPriority)
+-- Values(UUID(), 'Matt Riddle', '2023-09-01', 'Test Description', 0, 1);
 
 --DROP Table Assignments;
 
