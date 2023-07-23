@@ -42,16 +42,18 @@ namespace AssignmentsAPI.Controllers
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{externalId}")]
+        public async Task<IActionResult> Delete(Guid externalId)
         {
+            await _assignmentsService.DeleteAsync(externalId);
+            return Ok("Assignment deleted");
         }
 
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] Assignments assignment)
         {
             await _assignmentsService.InsertAsync(assignment);
-            return Ok();
+            return Ok("Assignment inserted");
         }
     }
 }

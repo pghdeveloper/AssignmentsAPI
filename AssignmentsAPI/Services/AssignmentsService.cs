@@ -18,11 +18,17 @@ namespace AssignmentsAPI.Services
 			assignment.ExternalId = Guid.NewGuid();
 			await _assignmentsRepository.InsertAsync(assignment); 
 		}
+		
+		public async Task DeleteAsync(Guid externalId)
+		{
+			await _assignmentsRepository.DeleteAsync(externalId);
+		}
 	}
 
 	public interface IAssignmentsService
 	{
 		Task InsertAsync(Assignments assignment);
+		Task DeleteAsync(Guid externalId);
 	}
 }
 
