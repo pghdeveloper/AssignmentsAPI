@@ -15,6 +15,7 @@ namespace AssignmentsAPI.Services
 
 		public async Task InsertAsync(Assignments assignment)
 		{
+			assignment.ExternalId = Guid.NewGuid();
 			await _assignmentsRepository.InsertAsync(assignment); 
 		}
 	}
