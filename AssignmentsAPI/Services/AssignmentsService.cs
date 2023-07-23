@@ -28,6 +28,11 @@ namespace AssignmentsAPI.Services
 		{
 			return await _assignmentsRepository.GetTasksByAssignee(assignee);
 		}
+
+		public async Task UpdateAsync(Assignments assignment)
+		{
+			await _assignmentsRepository.UpdateAsync(assignment);
+		}
 	}
 
 	public interface IAssignmentsService
@@ -35,6 +40,7 @@ namespace AssignmentsAPI.Services
 		Task InsertAsync(Assignments assignment);
 		Task DeleteAsync(Guid externalId);
 		Task<IEnumerable<Assignments>> GetTasksByAssignee(string assignee);
+		Task UpdateAsync(Assignments assignment);
 	}
 }
 

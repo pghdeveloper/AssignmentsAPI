@@ -29,12 +29,6 @@ namespace AssignmentsAPI.Controllers
             return Ok(assignments);
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
         // DELETE api/values/5
         [HttpDelete("{externalId}")]
         public async Task<IActionResult> Delete(Guid externalId)
@@ -46,6 +40,12 @@ namespace AssignmentsAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] Assignments assignment)
         {
+            if (Guid.TryParse(assignment.ExternalId, out var result) && result != Guid.Empty)
+            {
+                await _assignmentsService.UpdateAsync(assignment);
+                return Ok("Assignment updated");
+            }
+            
             await _assignmentsService.InsertAsync(assignment);
             return Ok("Assignment inserted");
         }

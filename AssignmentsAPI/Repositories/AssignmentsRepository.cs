@@ -39,6 +39,22 @@ namespace AssignmentsAPI.Repositories
 		        return await connection.QueryAsync<Assignments>(sql, new { assignee });
 	        }
 		}
+        
+        public async Task UpdateAsync(Assignments assignment)
+		{
+	        using (var connection = _sqlConnectionFactory.CreateSqlConnection())
+	        {
+		        const string sql = @"
+	            UPDATE Assignments 
+	            SET Assignee = @Assignee,
+	                DueDate = @DueDate,
+	                Description = @Description, 
+	                PercentComplete = @PercentComplete, 
+	                IsPriority = @IsPriority
+	            WHERE ExternalId = @ExternalId";	
+		        await connection.ExecuteAsync(sql, new { assignment.Assignee, assignment.DueDate, assignment.Description, assignment.PercentComplete, assignment.IsPriority, assignment.ExternalId });
+	        }
+		}
 	}
 
 	public interface IAssignmentsRepository
@@ -46,6 +62,7 @@ namespace AssignmentsAPI.Repositories
 		Task InsertAsync(Assignments assignment);
 		Task DeleteAsync(Guid externalId);
 		Task<IEnumerable<Assignments>> GetTasksByAssignee(string assignee);
+		Task UpdateAsync(Assignments assignment);
 	}
 }
 
