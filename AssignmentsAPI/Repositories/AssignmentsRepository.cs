@@ -30,12 +30,22 @@ namespace AssignmentsAPI.Repositories
 		        await connection.ExecuteAsync(sql, new { externalId });
 	        }
         }
+
+        public async Task<IEnumerable<Assignments>> GetTasksByAssignee(string assignee)
+		{
+	        using (var connection = _sqlConnectionFactory.CreateSqlConnection())
+	        {
+		        const string sql = @"SELECT * FROM Assignments WHERE Assignee = @assignee";
+		        return await connection.QueryAsync<Assignments>(sql, new { assignee });
+	        }
+		}
 	}
 
 	public interface IAssignmentsRepository
 	{
 		Task InsertAsync(Assignments assignment);
 		Task DeleteAsync(Guid externalId);
+		Task<IEnumerable<Assignments>> GetTasksByAssignee(string assignee);
 	}
 }
 

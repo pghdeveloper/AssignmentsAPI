@@ -15,7 +15,7 @@ namespace AssignmentsAPI.Services
 
 		public async Task InsertAsync(Assignments assignment)
 		{
-			assignment.ExternalId = Guid.NewGuid();
+			assignment.ExternalId = Guid.NewGuid().ToString();
 			await _assignmentsRepository.InsertAsync(assignment); 
 		}
 		
@@ -23,12 +23,18 @@ namespace AssignmentsAPI.Services
 		{
 			await _assignmentsRepository.DeleteAsync(externalId);
 		}
+		
+		public async Task<IEnumerable<Assignments>> GetTasksByAssignee(string assignee)
+		{
+			return await _assignmentsRepository.GetTasksByAssignee(assignee);
+		}
 	}
 
 	public interface IAssignmentsService
 	{
 		Task InsertAsync(Assignments assignment);
 		Task DeleteAsync(Guid externalId);
+		Task<IEnumerable<Assignments>> GetTasksByAssignee(string assignee);
 	}
 }
 

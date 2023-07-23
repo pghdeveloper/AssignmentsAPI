@@ -21,18 +21,12 @@ namespace AssignmentsAPI.Controllers
             _assignmentsService = assignmentsService;
         }
 
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet()]
+        public async Task<IActionResult> GetAssignments([FromQuery] string assignee = "")
         {
-            return "value";
+            var assignments = await _assignmentsService.GetTasksByAssignee(assignee);
+            return Ok(assignments);
         }
 
         // PUT api/values/5

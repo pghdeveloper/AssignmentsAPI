@@ -1,4 +1,5 @@
-﻿using Dapper.Contrib.Extensions;
+﻿using System.Text.Json.Serialization;
+using Dapper.Contrib.Extensions;
 
 namespace AssignmentsAPI.Models
 {
@@ -7,8 +8,10 @@ namespace AssignmentsAPI.Models
 	public class Assignments
 	{
 		[Key]
+		[JsonIgnore]
 		public int Id { get; set; }
-		public Guid ExternalId { get; set; }
+
+		public string ExternalId { get; set; } = "";
 		public string Assignee { get; set; }
 		public string DueDate { get; set; }
 		public string Description { get; set; }
