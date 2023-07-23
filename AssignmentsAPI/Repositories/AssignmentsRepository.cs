@@ -52,7 +52,8 @@ namespace AssignmentsAPI.Repositories
 	                PercentComplete = @PercentComplete, 
 	                IsPriority = @IsPriority
 	            WHERE ExternalId = @ExternalId";	
-		        await connection.ExecuteAsync(sql, new { assignment.Assignee, assignment.DueDate, assignment.Description, assignment.PercentComplete, assignment.IsPriority, assignment.ExternalId });
+		        //await connection.ExecuteAsync(sql, new { assignment.Assignee, assignment.DueDate, assignment.Description, assignment.PercentComplete, assignment.IsPriority, assignment.ExternalId });
+		        await connection.ExecuteAsync(sql, assignment);
 	        }
 		}
 	}
