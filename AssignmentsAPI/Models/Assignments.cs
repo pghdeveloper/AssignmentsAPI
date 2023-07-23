@@ -11,7 +11,7 @@ namespace AssignmentsAPI.Models
 		public string Assignee { get; set; }
 		public string DueDate { get; set; }
 		public string Description { get; set; }
-		public decimal PercentCompleted { get; set; }
+		public decimal PercentComplete { get; set; }
 		public bool IsPriority { get; set; }
 	}
 }
