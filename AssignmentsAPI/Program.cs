@@ -21,6 +21,9 @@ builder.Services.AddScoped<ISqlConnectionFactory, SqlConnectionFactory>();
 builder.Services.AddScoped<IAssignmentsRepository, AssignmentsRepository>();
 builder.Services.AddScoped<IAssignmentsService, AssignmentsService>();
 
+builder.Services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,5 +38,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("AllowAll");
 
 app.Run();
