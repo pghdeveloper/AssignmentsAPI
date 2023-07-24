@@ -25,29 +25,53 @@ namespace AssignmentsAPI.Controllers
         [HttpGet()]
         public async Task<IActionResult> GetAssignments([FromQuery] string assignee = "")
         {
-            var assignments = await _assignmentsService.GetTasksByAssignee(assignee);
-            return Ok(assignments);
+            try
+            {
+                var assignments = await _assignmentsService.GetTasksByAssignee(assignee);
+                return Ok(assignments);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         // DELETE api/values/5
         [HttpDelete("{externalId}")]
         public async Task<IActionResult> Delete(Guid externalId)
         {
-            await _assignmentsService.DeleteAsync(externalId);
-            return Ok("Assignment deleted");
+            try
+            {
+                await _assignmentsService.DeleteAsync(externalId);
+                return Ok("Assignment deleted");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] Assignments assignment)
         {
-            if (Guid.TryParse(assignment.ExternalId, out var result) && result != Guid.Empty)
+            try
             {
-                await _assignmentsService.UpdateAsync(assignment);
-                return Ok("Assignment updated");
+                if (Guid.TryParse(assignment.ExternalId, out var result) && result != Guid.Empty)
+                {
+                    await _assignmentsService.UpdateAsync(assignment);
+                    return Ok("Assignment updated");
+                }
+
+                await _assignmentsService.InsertAsync(assignment);
+                return Ok("Assignment inserted");
             }
-            
-            await _assignmentsService.InsertAsync(assignment);
-            return Ok("Assignment inserted");
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(500, "Internal server error");
+            }
         }
     }
 }

@@ -1,7 +1,11 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using AssignmentsAPI.Filters;
 using AssignmentsAPI.Repositories;
 using AssignmentsAPI.Services;
+using AssignmentsAPI.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +17,14 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     // Ignore properties with null values
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
+
+builder.Services.AddMvc(options =>
+{
+    options.Filters.Add(typeof(FluentValidationActionFilter));
+});
+
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -22,7 +34,7 @@ builder.Services.AddScoped<IAssignmentsRepository, AssignmentsRepository>();
 builder.Services.AddScoped<IAssignmentsService, AssignmentsService>();
 
 builder.Services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
-
+builder.Services.AddValidatorsFromAssemblyContaining<AssignmentsValidator>();
 
 var app = builder.Build();
 
