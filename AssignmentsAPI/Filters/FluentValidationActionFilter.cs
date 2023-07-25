@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AssignmentsAPI.Filters;
 
-public class FluentValidationActionFilter : IActionFilter
+public class FluentValidationActionFilter : ActionFilterAttribute
 {
-    public void OnActionExecuting(ActionExecutingContext context)
+    public override void OnActionExecuting(ActionExecutingContext context)
     {
         if (!context.ModelState.IsValid)
         {
@@ -18,7 +18,7 @@ public class FluentValidationActionFilter : IActionFilter
         }
     }
 
-    public void OnActionExecuted(ActionExecutedContext context)
+    public override void OnActionExecuted(ActionExecutedContext context)
     {
         // This method can be left empty
     }
