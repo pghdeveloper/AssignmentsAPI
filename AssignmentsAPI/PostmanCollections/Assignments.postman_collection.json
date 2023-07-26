@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "145fc0ae-d63a-409d-8273-ee0ada4b019d",
+		"name": "Assignments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28699198"
+	},
+	"item": [
+		{
+			"name": "Insert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"assignee\": \"Jake Roberts\",\n    \"dueDate\": \"2023-09-10\",\n    \"description\": \"Hi HI Hi\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:7287/Assignments",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7287",
+					"path": [
+						"Assignments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert With All Information",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Assignee\": \"Rhea Ripley\",\n    \"DueDate\": \"2023-09-08\",\n    \"Description\": \"Judgement Day Part 3\",\n    \"PercentComplete\": 100.03,\n    \"IsPriority\": true\n}"
+				},
+				"url": {
+					"raw": "https://localhost:7287/Assignments",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7287",
+					"path": [
+						"Assignments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Assignment",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7287/Assignments/37f57b66-9da9-4e13-8e1d-0285df56acdc",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7287",
+					"path": [
+						"Assignments",
+						"37f57b66-9da9-4e13-8e1d-0285df56acdc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Assignments By Assignee",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7287/Assignments?Assignee=Finn Balor",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7287",
+					"path": [
+						"Assignments"
+					],
+					"query": [
+						{
+							"key": "Assignee",
+							"value": "Finn Balor"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ExternalId\": \"2D0A6572-97AE-4602-9D5F-1662BFA668D2\",\n    \"Assignee\": \"Finn Balor\",\n    \"DueDate\": \"2023-09-10\",\n    \"Description\": \"Judgement Day Part 2\",\n    \"PercentComplete\": 100.00,\n    \"IsPriority\": false\n}"
+				},
+				"url": {
+					"raw": "https://localhost:7287/Assignments",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7287",
+					"path": [
+						"Assignments"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
