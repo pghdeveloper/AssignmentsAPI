@@ -16,7 +16,7 @@ namespace AssignmentsAPI.Controllers
     public class AssignmentsController : Controller
     {
         private readonly IAssignmentsService _assignmentsService;
-        private IValidator<Assignments> _validator;
+        private readonly IValidator<Assignments> _validator;
 
         public AssignmentsController(IAssignmentsService assignmentsService, IValidator<Assignments> validator)
         {
@@ -57,7 +57,7 @@ namespace AssignmentsAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Assignments assignment)
+        public async Task<IActionResult> Post([FromBody] Assignments assignment)
         {
             try
             {
