@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AssignmentsAPI.Models;
 using AssignmentsAPI.Services;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,10 +16,12 @@ namespace AssignmentsAPI.Controllers
     public class AssignmentsController : Controller
     {
         private readonly IAssignmentsService _assignmentsService;
+        private IValidator<Assignments> _validator;
 
-        public AssignmentsController(IAssignmentsService assignmentsService)
+        public AssignmentsController(IAssignmentsService assignmentsService, IValidator<Assignments> validator)
         {
             _assignmentsService = assignmentsService;
+            _validator = validator;
         }
 
         // GET api/values/5
@@ -58,7 +61,14 @@ namespace AssignmentsAPI.Controllers
         {
             try
             {
-                if (Guid.TryParse(assignment.ExternalId, out var result) && result != Guid.Empty)
+                var result = await _validator.ValidateAsync(assignment);
+
+                if (!result.IsValid) 
+                { // re-render the view when validation failed.
+                    return BadRequest(result.Errors.Select(e => e.ErrorMessage).ToArray());
+                }
+                
+                if (Guid.TryParse(assignment.ExternalId, out var externalIdResult) && externalIdResult != Guid.Empty)
                 {
                     await _assignmentsService.UpdateAsync(assignment);
                     return Ok("Assignment updated");
