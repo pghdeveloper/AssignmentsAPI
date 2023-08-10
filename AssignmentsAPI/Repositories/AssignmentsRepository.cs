@@ -46,8 +46,7 @@ namespace AssignmentsAPI.Repositories
 	        {
 		        const string sql = @"
 	            UPDATE Assignments 
-	            SET Assignee = @Assignee,
-	                DueDate = @DueDate,
+	            SET DueDate = @DueDate,
 	                Description = @Description, 
 	                PercentComplete = @PercentComplete, 
 	                IsPriority = @IsPriority
