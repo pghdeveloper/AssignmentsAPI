@@ -1,7 +1,6 @@
 ﻿using AssignmentsAPI.Models;
 using Dapper;
 using Dapper.Contrib.Extensions;
-using System.Data.SQLite;
 
 namespace AssignmentsAPI.Repositories
 {
